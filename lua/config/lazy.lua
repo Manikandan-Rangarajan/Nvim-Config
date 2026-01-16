@@ -1,3 +1,4 @@
+
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 
@@ -32,7 +33,12 @@ require("lazy").setup({
     "nvim-tree/nvim-tree.lua",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
-      require("nvim-tree").setup({})
+      require("nvim-tree").setup({
+        filters = {
+          dotfiles = false,
+          custom = { ".git" }
+        }
+      })
     end,
   },
 
@@ -59,7 +65,7 @@ require("lazy").setup({
       require("telescope").setup({})
     end,
   },
-    -- 🧠 LSP manager
+  -- 🧠 LSP manager
   {
     "williamboman/mason.nvim",
     config = function()
@@ -68,36 +74,36 @@ require("lazy").setup({
   },
 
   {
-  "williamboman/mason-lspconfig.nvim",
-  dependencies = { "williamboman/mason.nvim" },
-  config = function()
-    require("mason-lspconfig").setup({
-      ensure_installed = {
-        "pyright",
-        "ts_ls",
-        "clangd",
-        "lua_ls",
-      },
-    })
-  end,
-},
+    "williamboman/mason-lspconfig.nvim",
+    dependencies = { "williamboman/mason.nvim" },
+    config = function()
+      require("mason-lspconfig").setup({
+        ensure_installed = {
+          "pyright",
+          "ts_ls",
+          "clangd",
+          "lua_ls",
+        },
+      })
+    end,
+  },
   {
-  "neovim/nvim-lspconfig",
-  config = function()
-    vim.lsp.config("pyright", {})
-    vim.lsp.config("ts_ls", {})
-    vim.lsp.config("clangd", {})
-    vim.lsp.config("lua_ls", {
-      settings = {
-        Lua = {
-          diagnostics = {
-            globals = { "vim" },
+    "neovim/nvim-lspconfig",
+    config = function()
+      vim.lsp.config("pyright", {})
+      vim.lsp.config("ts_ls", {})
+      vim.lsp.config("clangd", {})
+      vim.lsp.config("lua_ls", {
+        settings = {
+          Lua = {
+            diagnostics = {
+              globals = { "vim" },
+            },
           },
         },
-      },
-    })
-  end,
-},
+      })
+    end,
+  },
 
   -- ✨ Autocomplete engine
   {
@@ -130,44 +136,51 @@ require("lazy").setup({
   },
 
   {
-  "neovim/nvim-lspconfig",
-  config = function()
-    vim.diagnostic.config({
-      virtual_text = true,
-      signs = true,
-      underline = true,
-      update_in_insert = false,
-      severity_sort = true,
-    })
-  end,
-},
+    "neovim/nvim-lspconfig",
+    config = function()
+      vim.diagnostic.config({
+        virtual_text = true,
+        signs = true,
+        underline = true,
+        update_in_insert = false,
+        severity_sort = true,
+      })
+    end,
+  },
 
-{
-  "lewis6991/gitsigns.nvim",
-  config = function()
-    require("gitsigns").setup()
-  end,
-},
+  {
+    "lewis6991/gitsigns.nvim",
+    config = function()
+      require("gitsigns").setup()
+    end,
+  },
 
-{
-  "stevearc/conform.nvim",
-  config = function()
-    require("conform").setup({
-      formatters_by_ft = {
-        lua = { "stylua" },
-        python = { "black" },
-        javascript = { "prettier" },
-        typescript = { "prettier" },
-      },
-      format_on_save = {
-        timeout_ms = 500,
-        lsp_fallback = true,
-      },
-    })
-  end,
-},
+  {
+    "stevearc/conform.nvim",
+    config = function()
+      require("conform").setup({
+        formatters_by_ft = {
+          lua = { "stylua" },
+          python = { "black" },
+          javascript = { "prettier" },
+          typescript = { "prettier" },
+        },
+        format_on_save = {
+          timeout_ms = 500,
+          lsp_fallback = true,
+        },
+      })
+    end,
+  },
+
+  {
+    "windwp/nvim-autopairs",
+    event = "InsertEnter",
+    config = function()
+      require("nvim-autopairs").setup({})
+    end,
+  },
 
 
 
 })
-
