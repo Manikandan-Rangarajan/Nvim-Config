@@ -28,12 +28,6 @@ No bloat. No random plugins.
 
 ---
 
-## 📸 Preview
-
-> (Optional: add screenshots later for extra maja)
-
----
-
 ## 📁 Folder Structure
 Nvim-config
 │   .gitignore
