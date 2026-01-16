@@ -68,7 +68,7 @@ Install these **before** using the config:
 **Linux / macOS**
 ```bash
 mv ~/.config/nvim ~/.config/nvim.bak
-```windows
+
 Move-Item $env:LOCALAPPDATA\nvim $env:LOCALAPPDATA\nvim.bak
 
 ---
@@ -88,7 +88,7 @@ git clone https://github.com/Manikandan-Rangarajan/Nvim-Config.git $env:LOCALAPP
 
 Start Neovim
 nvim
-
+```
 ---
 
 ⌨️ Keybindings
