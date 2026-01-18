@@ -1,4 +1,3 @@
-
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 
@@ -36,7 +35,8 @@ require("lazy").setup({
       require("nvim-tree").setup({
         filters = {
           dotfiles = false,
-          custom = { ".git" }
+          git_ignored = false,
+          custom = { "node_modules" },
         }
       })
     end,
@@ -155,16 +155,33 @@ require("lazy").setup({
     end,
   },
 
+
   {
     "stevearc/conform.nvim",
     config = function()
       require("conform").setup({
+
+        -- Filetype → formatter mapping
         formatters_by_ft = {
           lua = { "stylua" },
           python = { "black" },
           javascript = { "prettier" },
           typescript = { "prettier" },
+          javascriptreact = { "prettier" },
+          typescriptreact = { "prettier" },
+          json = { "prettier" },
+          html = { "prettier" },
+          css = { "prettier" },
         },
+
+        -- Explicit formatter definitions (Windows path fix)
+        formatters = {
+          prettier = {
+            command = "C:/Users/Manikandan Rangarjan/AppData/Roaming/npm/prettier.cmd",
+          },
+        },
+
+        -- Auto format on save
         format_on_save = {
           timeout_ms = 500,
           lsp_fallback = true,

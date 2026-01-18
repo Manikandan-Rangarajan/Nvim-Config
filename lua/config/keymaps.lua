@@ -34,3 +34,6 @@ map("n", "]d", vim.diagnostic.goto_next, { desc = "Next Diagnostic" })
 -- ======================
 map("n", "<Tab>", ":bnext<CR>", { desc = "Next Buffer" })
 map("n", "<S-Tab>", ":bprev<CR>", { desc = "Prev Buffer" })
+
+
+vim.keymap.set("n", "<leader>r", ":NvimTreeChangeRootToNode<CR>", { desc = "Tree: change root" })
