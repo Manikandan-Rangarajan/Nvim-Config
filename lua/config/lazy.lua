@@ -14,10 +14,9 @@ end
 
 vim.opt.rtp:prepend(lazypath)
 
--- Plugins
 require("lazy").setup({
 
-  -- 🎨 Theme (loads FIRST)
+  -- 🎨 Theme
   {
     "catppuccin/nvim",
     name = "catppuccin",
@@ -57,7 +56,7 @@ require("lazy").setup({
     end,
   },
 
-  -- 🔍 Fuzzy finder
+  -- 🔍 Telescope
   {
     "nvim-telescope/telescope.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
@@ -65,7 +64,8 @@ require("lazy").setup({
       require("telescope").setup({})
     end,
   },
-  -- 🧠 LSP manager
+
+  -- 🧠 Mason
   {
     "williamboman/mason.nvim",
     config = function()
@@ -73,6 +73,7 @@ require("lazy").setup({
     end,
   },
 
+  -- 🧠 Mason LSP
   {
     "williamboman/mason-lspconfig.nvim",
     dependencies = { "williamboman/mason.nvim" },
@@ -87,6 +88,25 @@ require("lazy").setup({
       })
     end,
   },
+
+  -- 🧰 Mason Tool Installer (FORMATTERS)
+  {
+    "WhoIsSethDaniel/mason-tool-installer.nvim",
+    dependencies = { "williamboman/mason.nvim" },
+    config = function()
+      require("mason-tool-installer").setup({
+        ensure_installed = {
+          "prettier",
+          "stylua",
+          "black",
+        },
+        auto_update = true,
+        run_on_start = true,
+      })
+    end,
+  },
+
+  -- 🧠 LSP Config (SINGLE BLOCK)
   {
     "neovim/nvim-lspconfig",
     config = function()
@@ -102,10 +122,18 @@ require("lazy").setup({
           },
         },
       })
+
+      vim.diagnostic.config({
+        virtual_text = true,
+        signs = true,
+        underline = true,
+        update_in_insert = false,
+        severity_sort = true,
+      })
     end,
   },
 
-  -- ✨ Autocomplete engine
+  -- ✨ Autocomplete
   {
     "hrsh7th/nvim-cmp",
     dependencies = {
@@ -135,19 +163,7 @@ require("lazy").setup({
     end,
   },
 
-  {
-    "neovim/nvim-lspconfig",
-    config = function()
-      vim.diagnostic.config({
-        virtual_text = true,
-        signs = true,
-        underline = true,
-        update_in_insert = false,
-        severity_sort = true,
-      })
-    end,
-  },
-
+  -- 🧾 Git signs
   {
     "lewis6991/gitsigns.nvim",
     config = function()
@@ -155,41 +171,34 @@ require("lazy").setup({
     end,
   },
 
+  -- ✨ Formatter (Conform)
+{
+  "stevearc/conform.nvim",
+  config = function()
+    require("conform").setup({
+      formatters_by_ft = {
+        lua = { "stylua" },
+        python = { "black" },
+        javascript = { "prettier" },
+        typescript = { "prettier" },
+        javascriptreact = { "prettier" },
+        typescriptreact = { "prettier" },
+        json = { "prettier" },
+        html = { "prettier" },
+        css = { "prettier" },
+      },
 
-  {
-    "stevearc/conform.nvim",
-    config = function()
-      require("conform").setup({
+      format_on_save = {
+        timeout_ms = 1000,
+        lsp_fallback = true,
+      },
+    })
+  end,
+},
+    
+ 
 
-        -- Filetype → formatter mapping
-        formatters_by_ft = {
-          lua = { "stylua" },
-          python = { "black" },
-          javascript = { "prettier" },
-          typescript = { "prettier" },
-          javascriptreact = { "prettier" },
-          typescriptreact = { "prettier" },
-          json = { "prettier" },
-          html = { "prettier" },
-          css = { "prettier" },
-        },
-
-        -- Explicit formatter definitions (Windows path fix)
-        formatters = {
-          prettier = {
-            command = "C:/Users/Manikandan Rangarjan/AppData/Roaming/npm/prettier.cmd",
-          },
-        },
-
-        -- Auto format on save
-        format_on_save = {
-          timeout_ms = 500,
-          lsp_fallback = true,
-        },
-      })
-    end,
-  },
-
+  -- 🔌 Autopairs
   {
     "windwp/nvim-autopairs",
     event = "InsertEnter",
@@ -197,7 +206,5 @@ require("lazy").setup({
       require("nvim-autopairs").setup({})
     end,
   },
-
-
 
 })
