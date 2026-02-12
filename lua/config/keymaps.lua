@@ -37,3 +37,11 @@ map("n", "<S-Tab>", ":bprev<CR>", { desc = "Prev Buffer" })
 
 
 vim.keymap.set("n", "<leader>r", ":NvimTreeChangeRootToNode<CR>", { desc = "Tree: change root" })
+vim.api.nvim_create_user_command("Format", function()
+  require("conform").format({
+    lsp_fallback = true,
+    async = false,
+  })
+end, {})
+
+
