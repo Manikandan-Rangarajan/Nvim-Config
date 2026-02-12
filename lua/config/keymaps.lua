@@ -44,4 +44,8 @@ vim.api.nvim_create_user_command("Format", function()
   })
 end, {})
 
+vim.keymap.set("n", "<leader>t", function()
+  vim.cmd("vsplit | terminal pwsh")
+end, { desc = "Open terminal in vsplit" })
 
+vim.keymap.set("t", "<leader><BS>", [[<C-\><C-n>]], { noremap = true, desc = "Exit terminal mode" })
